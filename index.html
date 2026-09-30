@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buscador de precios</title>
+<style>
+  :root { --fondo:#F2F5F7; --tinta:#14212B; --suave:#5B6B78; --linea:#D5DDE3; --verde:#0A7D4F; --blanco:#fff; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--fondo); color:var(--tinta); font:16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:40px 20px 64px; }
+  h1 { font-size:2rem; margin:0 0 6px; letter-spacing:-0.02em; }
+  .sub { color:var(--suave); margin:0 0 28px; }
+  form { display:grid; grid-template-columns:1fr 150px 130px auto; gap:10px; margin-bottom:28px; }
+  input, select, button { font:inherit; padding:11px 12px; border:1px solid var(--linea); border-radius:6px; background:var(--blanco); color:var(--tinta); }
+  button { background:var(--tinta); color:var(--blanco); border-color:var(--tinta); cursor:pointer; font-weight:600; }
+  button:disabled { opacity:.6; cursor:wait; }
+  :focus-visible { outline:3px solid var(--verde); outline-offset:2px; }
+  #estado { color:var(--suave); margin:0 0 16px; }
+  #estado.error { color:#B3261E; }
+  .mejor { display:grid; grid-template-columns:96px 1fr; gap:18px; padding:20px; background:var(--blanco); border:2px solid var(--verde); border-radius:10px; margin-bottom:20px; }
+  .mejor .precio { font-size:2.4rem; font-weight:700; color:var(--verde); line-height:1.1; letter-spacing:-0.02em; }
+  .mejor h2 { font-size:1rem; margin:6px 0 4px; font-weight:600; }
+  .mejor a.ir { display:inline-block; margin-top:10px; font-weight:600; color:var(--verde); }
+  img { width:96px; height:96px; object-fit:contain; background:var(--fondo); border-radius:6px; }
+  ul { list-style:none; margin:0; padding:0; border-top:1px solid var(--linea); }
+  li { display:grid; grid-template-columns:1fr auto; gap:4px 16px; padding:12px 0; border-bottom:1px solid var(--linea); }
+  li a { color:var(--tinta); text-decoration:none; }
+  li a:hover { text-decoration:underline; }
+  li .tienda { color:var(--suave); font-size:.9rem; }
+  li .p { font-weight:600; grid-row:1 / span 2; grid-column:2; align-self:center; }
+  @media (max-width:640px) { form { grid-template-columns:1fr 1fr; } form input:first-child { grid-column:1 / -1; } .mejor { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Buscador de precios</h1>
+  <p class="sub">Escribe un producto y ve cuál tienda lo vende más barato.</p>
+
+  <form id="f">
+    <input id="q" placeholder="Ej: audífonos inalámbricos" aria-label="Producto" required>
+    <select id="pais" aria-label="País">
+      <option value="us">Estados Unidos</option>
+      <option value="co">Colombia</option>
+      <option value="mx">México</option>
+      <option value="ar">Argentina</option>
+      <option value="cl">Chile</option>
+      <option value="pe">Perú</option>
+      <option value="es">España</option>
+    </select>
+    <input id="minimo" type="number" min="0" step="any" placeholder="Precio mínimo" aria-label="Precio mínimo">
+    <button id="b">Buscar</button>
+  </form>
+
+  <p id="estado" role="status"></p>
+  <div id="mejor"></div>
+  <ul id="lista"></ul>
+</main>
+
+<script src="buscar.js"></script>
+</body>
+</html>
